@@ -13,8 +13,10 @@ import ExtensionSubscript from "./subscript";
 import ExtensionBulletList from "./bullet-list";
 import ExtensionOrderedList from "./ordered-list";
 import ExtensionTaskList from "./task-list";
+import ExtensionListKeymap from "./list-keymap";
 import ExtensionTable from "./table";
 import ExtensionTextAlign from "./text-align";
+import ExtensionTextStyle from "@tiptap/extension-text-style";
 import ExtensionLink from "./link";
 import ExtensionColor from "./color";
 import ExtensionFontSize from "./font-size";
@@ -23,6 +25,7 @@ import ExtensionGapcursor from "@tiptap/extension-gapcursor";
 import ExtensionHardBreak from "@tiptap/extension-hard-break";
 import ExtensionHorizontalRule from "@tiptap/extension-horizontal-rule";
 import ExtensionDocument from "@tiptap/extension-document";
+import ExtensionParagraph from "./paragraph";
 import ExtensionPlaceholder from "@tiptap/extension-placeholder";
 import { i18n } from "@/locales";
 
@@ -118,10 +121,12 @@ export {
   ExtensionTaskList,
   ExtensionLink,
   ExtensionTextAlign,
+  ExtensionTextStyle,
   ExtensionUnderline,
   ExtensionTable,
   ExtensionSubscript,
   ExtensionSuperscript,
+  ExtensionParagraph,
   ExtensionPlaceholder,
   ExtensionHighlight,
   ExtensionCommands,
@@ -138,4 +143,5 @@ export {
   ExtensionColumn,
   ExtensionNodeSelected,
   ExtensionTrailingNode,
+  ExtensionListKeymap,
 };
