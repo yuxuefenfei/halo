@@ -103,6 +103,10 @@ tasks.register('downloadPluginPresets', Download) {
         delete 'src/main/resources/presets/plugins'
     }
     src([
+            // 将以下插件的下载地址修改为国内的源，
+            // 注意：如果单纯配置了魔法是解决不了下载失败的问题的：
+            // 因为脚本中的gradle并没有走代理，
+            // 想要使魔法生效还需要参考第一步在gradle.properties文件添加代理
             'https://github.com/halo-dev/plugin-comment-widget/releases/download/v1.8.0/plugin-comment-widget-1.8.0.jar',
             'https://github.com/halo-dev/plugin-search-widget/releases/download/v1.2.0/plugin-search-widget-1.2.0.jar',
             'https://github.com/halo-dev/plugin-sitemap/releases/download/v1.1.1/plugin-sitemap-1.1.1.jar',
