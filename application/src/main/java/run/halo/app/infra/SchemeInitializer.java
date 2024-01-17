@@ -44,7 +44,7 @@ import run.halo.app.plugin.extensionpoint.ExtensionPointDefinition;
 import run.halo.app.search.extension.SearchEngine;
 import run.halo.app.security.PersonalAccessToken;
 
-@Component
+// @Component 重复的标记，已在spring.factories文件中手动指定
 public class SchemeInitializer implements ApplicationListener<ApplicationContextInitializedEvent> {
 
     @Override
