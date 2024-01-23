@@ -1,9 +1,19 @@
-import TiptapTable, { type TableOptions } from "@tiptap/extension-table";
-import { isActive, type Editor, type Range } from "@/tiptap/vue-3";
-import type {
-  Node as ProseMirrorNode,
-  NodeView,
-  EditorState,
+import TiptapTable, {
+  type TableOptions,
+  createColGroup,
+} from "@tiptap/extension-table";
+import {
+  isActive,
+  type Editor,
+  type Range,
+  mergeAttributes,
+  isNodeActive,
+} from "@/tiptap/vue-3";
+import {
+  type Node as ProseMirrorNode,
+  type NodeView,
+  type EditorState,
+  type DOMOutputSpec,
 } from "@/tiptap/pm";
 import TableCell from "./table-cell";
 import TableRow from "./table-row";
@@ -25,6 +35,7 @@ import { markRaw } from "vue";
 import { i18n } from "@/locales";
 import type { ExtensionOptions, NodeBubbleMenu } from "@/types";
 import { BlockActionSeparator, ToolboxItem } from "@/components";
+import { hasTableBefore, isTableSelected } from "./util";
 
 function updateColumns(
   node: ProseMirrorNode,
@@ -374,6 +385,68 @@ const Table = TiptapTable.extend<ExtensionOptions & TableOptions>({
         };
       },
     };
+  },
+
+  addKeyboardShortcuts() {
+    const handleBackspace = () => {
+      const { editor } = this;
+      if (editor.commands.undoInputRule()) {
+        return true;
+      }
+
+      // the node in the current active state is not a table
+      // and the previous node is a table
+      if (
+        !isNodeActive(editor.state, Table.name) &&
+        hasTableBefore(editor.state)
+      ) {
+        editor.commands.selectNodeBackward();
+        return true;
+      }
+
+      if (!isNodeActive(editor.state, Table.name)) {
+        return false;
+      }
+
+      // If the table is currently selected,
+      // then delete the whole table
+      if (isTableSelected(editor.state.selection)) {
+        editor.commands.deleteTable();
+        return true;
+      }
+
+      return false;
+    };
+
+    return {
+      Backspace: () => handleBackspace(),
+
+      "Mod-Backspace": () => handleBackspace(),
+    };
+  },
+
+  renderHTML({ node, HTMLAttributes }) {
+    const { colgroup, tableWidth, tableMinWidth } = createColGroup(
+      node,
+      this.options.cellMinWidth
+    );
+
+    const table: DOMOutputSpec = [
+      "div",
+      { style: "overflow-x: auto; overflow-y: hidden;" },
+      [
+        "table",
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+          style: tableWidth
+            ? `width: ${tableWidth}`
+            : `minWidth: ${tableMinWidth}`,
+        }),
+        colgroup,
+        ["tbody", 0],
+      ],
+    ];
+
+    return table;
   },
 }).configure({ resizable: true });
 
