@@ -1,4 +1,4 @@
-# Halo事件分析
+# Halo的初始化过程
 
 ## run.halo.app.infra.SchemeInitializer
 
@@ -48,13 +48,3 @@ SchemeInitializer监听器是在容器尚未调用AbstractApplicationContext::re
     `run.halo.app.core.extension.reconciler.ThemeReconciler`
     `run.halo.app.core.extension.reconciler.RoleReconciler`
     `run.halo.app.core.extension.reconciler.AuthProviderReconciler`
-
-run.halo.app.event.post.PostPublishedEvent
-
-run.halo.app.plugin.event.HaloPluginLoadedEvent
-
-run.halo.app.plugin.event.HaloPluginStateChangedEvent
-
-run.halo.app.plugin.event.HaloPluginStartedEvent
-
-run.halo.app.plugin.event.PluginCreatedEvent
