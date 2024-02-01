@@ -50,6 +50,7 @@ public class DefaultQueue<R> implements RequestQueue<R> {
 
     @Override
     public boolean add(DelayedEntry<R> entry) {
+        // TODO debug会导致请求重新入队，应该是请求超时的问题。
         lock.lock();
         try {
             if (isDisposed()) {
