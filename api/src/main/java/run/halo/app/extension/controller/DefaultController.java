@@ -153,6 +153,7 @@ public class DefaultController<R> implements Controller {
             while (!isDisposed() && !Thread.currentThread().isInterrupted()) {
                 try {
                     var entry = queue.take();
+                    log.info("queue size: {}", queue.size());
                     Reconciler.Result result;
                     try {
                         log.debug("{} >>> Reconciling request {} at {}", this.name,
